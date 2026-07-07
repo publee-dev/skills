@@ -25,13 +25,20 @@ curl -X POST https://publee.app/api/publish \
 Response (`201`):
 
 ```json
-{ "site": { "url": "https://<slug>.publee.site", "slug": "<slug>", "visibility": "public", "expiresAt": "..." } }
+{
+  "site": { "url": "https://<slug>.publee.site", "slug": "<slug>", "visibility": "public", "expiresAt": "..." },
+  "claimToken": "…",
+  "claimUrl": "https://publee.app/claim?token=…"
+}
 ```
 
 Give `site.url` (and the password, if any) to the user. Anonymous publishes
-**expire after 7 days** — mention this. With an API token (`Authorization:
-Bearer publee_live_...`), sites last longer (free plan: 30 days, paid plans:
-persistent) and all visibility options unlock.
+**expire after 7 days** — mention this, and also share `claimUrl`: opening it
+after signing in transfers the site to the user's account (extending
+retention). `claimToken`/`claimUrl` are only present on anonymous publishes.
+With an API token (`Authorization: Bearer publee_live_...`), sites last longer
+(free plan: 30 days, paid plans: persistent) and more visibility options
+unlock.
 
 ## Parameters
 
@@ -41,13 +48,13 @@ persistent) and all visibility options unlock.
 | `files` | array | Multi-file sites. Each item: `{ path, content }` for text or `{ path, contentBase64, mimeType }` for binary. Must include a root `index.html` (a single root `.html` file is auto-renamed). |
 | `title` | string | Defaults to the HTML `<title>`. |
 | `description` | string | Optional. |
-| `visibility` | string | `public` \| `password` (default) \| `private` \| `workspace` \| `members`. Anonymous callers may only use `public` or `password`. |
+| `visibility` | string | `public` \| `password` (default) \| `private` \| `workspace` \| `members`. Anonymous callers may only use `public` or `password`. `private` needs the Pro plan; `workspace`/`members` need the Team plan. |
 | `password` | string | Required when `visibility: "password"`. Min 6 chars. |
-| `slug` | string | Custom subdomain, 3–63 chars, `[a-z0-9-]`. Random if omitted. |
+| `slug` | string | Custom subdomain, 3–63 chars, `[a-z0-9-]`. Random if omitted. **Paid plans (Pro+) only** — anonymous/free publishes always get a random slug. |
 | `overwrite` | boolean | Republish to an existing `slug` you own (same URL, all files replaced). Requires a Bearer token. |
 | `spaMode` | boolean | Serve `index.html` for unknown paths (client-side routing). |
-| `noindex` | boolean | Default `true` (blocks search engines). |
-| `memberEmails` | string[] | Allowlist for `visibility: "members"`. |
+| `noindex` | boolean | Default `true` (blocks search engines). Setting `false` needs a paid plan (Pro+). |
+| `memberEmails` | string[] | Allowlist for `visibility: "members"` (Team plan). Members get an email notification with the site URL. |
 
 `visibility` defaults to `password`, so **always pass `visibility` explicitly**:
 either `"public"`, or `"password"` together with a `password`.
@@ -70,9 +77,18 @@ curl -X POST https://publee.app/api/publish \
   }'
 ```
 
+## Limits
+
+- Site size: 10MB anonymous (and unverified-email accounts), 25MB free plan,
+  100MB paid plans. Max 1000 files.
+- Free plan: up to 3 concurrently active sites per workspace.
+- Slugs of expired/deleted sites are reserved for 90 days (not reusable).
+
 ## Errors
 
-- `400` — validation (bad slug, missing `index.html`, short password, …); message in `{ "error": "..." }`.
+- `400` — validation (bad slug, missing `index.html`, short password, plan-gated
+  feature like custom `slug` / `noindex: false` on free, …); message in
+  `{ "error": "..." }`.
 - `401` — invalid/expired token, or a visibility that needs auth.
 - `415` — missing `Content-Type: application/json`.
 - `429` — rate limited; wait and retry, don't loop.
