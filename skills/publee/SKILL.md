@@ -89,6 +89,13 @@ claude mcp add --transport http publee https://publee.app/api/mcp \
 ```
 
 The header is optional; without it, publishes are anonymous (7-day expiry).
+
+Publee also supports **OAuth login** for MCP clients (OAuth 2.1 with dynamic
+client registration; discovery at
+`https://publee.app/.well-known/oauth-authorization-server`). In clients with
+OAuth support (claude.ai custom connectors, Claude Code `/mcp` → authenticate),
+connect without a header and sign in via the browser — no API token needed.
+
 Prefer the REST API from scripts and this skill's curl examples in agents that
 already have shell access — no extra setup needed.
 
