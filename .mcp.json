@@ -1,0 +1,8 @@
+{
+	"mcpServers": {
+		"publee": {
+			"type": "http",
+			"url": "https://publee.app/api/mcp"
+		}
+	}
+}

@@ -5,6 +5,20 @@ turn HTML into limited-share URLs (`https://<slug>.publee.site`).
 
 ## Install
 
+### As a Claude Code plugin (skill + MCP server)
+
+Inside Claude Code:
+
+```
+/plugin marketplace add publee-dev/skills
+/plugin install publee@publee
+```
+
+This installs the `publee` skill together with the Publee MCP server
+(`https://publee.app/api/mcp`, OAuth login — no API token required).
+
+### As a standalone skill
+
 ```bash
 npx skills add publee-dev/skills
 ```

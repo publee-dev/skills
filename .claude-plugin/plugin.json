@@ -1,0 +1,13 @@
+{
+	"name": "publee",
+	"version": "0.1.0",
+	"description": "Publish HTML to a shareable URL (https://<slug>.publee.site). Includes the Publee MCP server (OAuth login, no token required) and a skill that teaches the publish API.",
+	"author": {
+		"name": "Publee",
+		"url": "https://publee.app"
+	},
+	"homepage": "https://publee.app",
+	"repository": "https://github.com/publee-dev/skills",
+	"license": "MIT",
+	"keywords": ["publee", "publish", "html", "hosting", "mcp"]
+}

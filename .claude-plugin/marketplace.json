@@ -1,0 +1,14 @@
+{
+	"name": "publee",
+	"owner": {
+		"name": "Publee",
+		"url": "https://publee.app"
+	},
+	"plugins": [
+		{
+			"name": "publee",
+			"source": "./",
+			"description": "Publish HTML to a shareable URL (https://<slug>.publee.site) right from Claude Code. Bundles the Publee MCP server and the publee skill."
+		}
+	]
+}
