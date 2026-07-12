@@ -1,7 +1,7 @@
 {
 	"name": "publee",
-	"version": "0.1.0",
-	"description": "Publish HTML to a shareable URL (https://<slug>.publee.site). Includes the Publee MCP server (OAuth login, no token required) and a skill that teaches the publish API.",
+	"version": "0.2.0",
+	"description": "Publish HTML to a shareable URL (https://<slug>.publee.site). Includes the Publee MCP server (OAuth login, no token required), a skill that teaches the publish API, and a shop-homepage skill that builds small-business sites.",
 	"author": {
 		"name": "Publee",
 		"url": "https://publee.app"

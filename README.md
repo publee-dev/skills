@@ -30,6 +30,7 @@ Works with Claude Code, Cursor, Codex, and any agent supported by the `skills` C
 | Skill | Description |
 |---|---|
 | [`publee`](skills/publee/SKILL.md) | Publish HTML (single page or static file tree) to a shareable URL via the Publee API. Supports password protection, custom slugs, and republishing to the same URL. |
+| [`shop-homepage`](skills/shop-homepage/SKILL.md) | Build a homepage for a small local business (restaurant, salon, classroom, …) from a short interview, then publish it with Publee. |
 
 ## What is Publee?
 
