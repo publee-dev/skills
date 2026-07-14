@@ -1,6 +1,6 @@
 ---
 name: publee
-description: Publish HTML (a single page or a static file tree) to a shareable https://<slug>.publee.site URL via the Publee API. Use when the user wants to share an HTML file, prototype, report, or static site as a URL — optionally password-protected, with no build step or hosting setup.
+description: Publish HTML (a single page or a static file tree) to a shareable https://<slug>.publee.site URL via the Publee API, or update the content of a previously published site while keeping the same URL. Use when the user wants to share an HTML file, prototype, report, or static site as a URL — or revise one they already shared — optionally password-protected, with no build step or hosting setup.
 ---
 
 # Publee — publish HTML to a shareable URL
@@ -8,7 +8,9 @@ description: Publish HTML (a single page or a static file tree) to a shareable h
 Publee turns HTML into a limited-share URL (`https://<slug>.publee.site`). One
 `POST` request, no account required. Use it when the user asks to "share this
 HTML", "give me a URL for this page", or wants to hand a prototype/report to
-someone else.
+someone else. Already-published sites can be **updated in place** (same URL) —
+see [Update an existing site](#update-an-existing-site-same-url); don't publish
+a new URL when the user wants to revise something they already shared.
 
 ## Quick start (no auth)
 
@@ -76,6 +78,31 @@ curl -X POST https://publee.app/api/publish \
     ]
   }'
 ```
+
+## Update an existing site (same URL)
+
+To revise a site you already published, pass its `slug` plus `overwrite: true`
+(authentication required — Bearer token, or OAuth for MCP):
+
+```bash
+curl -X POST https://publee.app/api/publish \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer publee_live_..." \
+  --data '{
+    "slug": "my-page",
+    "overwrite": true,
+    "html": "<!doctype html><html><body><h1>Updated</h1></body></html>"
+  }'
+```
+
+- The URL stays the same; **all files are replaced** (send the complete site,
+  not a diff). Retention is refreshed per plan.
+- Visibility, password, and other settings are unchanged — adjust those in the
+  site's share settings on the dashboard.
+- Re-POSTing the same `slug` **without** `overwrite` fails (slug conflict) —
+  it never silently replaces a site.
+- Anonymous (unauthenticated) sites can't be updated; publish again or claim
+  the site into an account first via `claimUrl`.
 
 ## Limits
 
