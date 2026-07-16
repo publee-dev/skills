@@ -36,10 +36,10 @@ Response (`201`):
 
 Give `site.url` (and the password, if any) to the user. Anonymous publishes
 **expire after 7 days** — mention this, and also share `claimUrl`: opening it
-after signing in transfers the site to the user's account (extending
-retention). `claimToken`/`claimUrl` are only present on anonymous publishes.
-With an API token (`Authorization: Bearer publee_live_...`), sites last longer
-(free plan: 30 days, paid plans: persistent) and more visibility options
+after signing in transfers the site to the user's account (making it
+persistent). `claimToken`/`claimUrl` are only present on anonymous publishes.
+With an API token (`Authorization: Bearer publee_live_...`), sites persist
+indefinitely on every plan (including free) and more visibility options
 unlock.
 
 ## Parameters
