@@ -113,12 +113,18 @@ curl -X POST https://publee.app/api/publish \
 
 ## Errors
 
-- `400` — validation (bad slug, missing `index.html`, short password, plan-gated
-  feature like custom `slug` / `noindex: false` on free, …); message in
-  `{ "error": "..." }`.
-- `401` — invalid/expired token, or a visibility that needs auth.
-- `415` — missing `Content-Type: application/json`.
-- `429` — rate limited; wait and retry, don't loop.
+Errors are always JSON: `{ "error": "<human message (Japanese)>", "code":
+"<stable code>", "hint": "<how to fix>", "docs": "..." }`. Branch on `code`.
+
+- `400` `invalid_input` — validation (bad slug, missing `index.html`, short
+  password, plan-gated feature like custom `slug` / `noindex: false` on free, …).
+- `401` `invalid_token` — invalid/expired token, or a visibility that needs auth.
+- `405` `method_not_allowed` — use `POST` for `/api/publish`.
+- `415` `unsupported_media_type` — missing `Content-Type: application/json`.
+- `429` `rate_limited` — rate limited; wait and retry, don't loop.
+- `500` `internal_error` — temporary server error; retry later.
+
+Machine-readable API spec: `https://publee.app/openapi.json` (OpenAPI 3.1).
 
 ## MCP server (optional)
 
