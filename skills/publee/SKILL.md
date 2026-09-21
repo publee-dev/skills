@@ -120,7 +120,8 @@ Errors are always JSON: `{ "error": "<human message (Japanese)>", "code":
   password, plan-gated feature like custom `slug` / `noindex: false` on free, …).
 - `401` `invalid_token` — invalid/expired token, or a visibility that needs auth.
 - `403` `plan_limit_reached` — the workspace hit its active-site limit (3 on
-  free). Delete an unused site or upgrade at `https://publee.app/billing`.
+  free). Upgrade at `https://publee.app/billing` to keep all sites, or update an
+  existing site (`overwrite: true`) instead of publishing a new one.
 - `405` `method_not_allowed` — use `POST` for `/api/publish`.
 - `415` `unsupported_media_type` — missing `Content-Type: application/json`.
 - `429` `rate_limited` — rate limited; wait and retry, don't loop.
