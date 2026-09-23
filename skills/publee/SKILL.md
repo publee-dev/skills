@@ -140,11 +140,13 @@ claude mcp add --transport http publee https://publee.app/api/mcp
 ```
 
 Without auth, publishes are anonymous (7-day expiry). To link publishes to an
-account, prefer **OAuth login** (OAuth 2.1 with dynamic client registration;
-discovery at `https://publee.app/.well-known/oauth-authorization-server`):
-in Claude Code, run `/mcp` → `publee` → Authenticate and sign in via the
-browser; claude.ai custom connectors prompt for login on connect. No API
-token needed.
+account, prefer **OAuth login** (OAuth 2.1 with dynamic client registration
+and Client ID Metadata Documents; discovery at
+`https://publee.app/.well-known/oauth-authorization-server`):
+in Claude Code, run `/mcp` → `publee` → Authenticate, sign in via the
+browser, then approve the "アクセスの許可" (access consent) screen;
+claude.ai custom connectors prompt for the same login and consent on
+connect. No API token needed.
 
 For clients without OAuth support, or headless/CI setups, pass an API token
 as a header instead:
